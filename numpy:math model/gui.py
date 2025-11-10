@@ -4,22 +4,7 @@ from PIL import Image, ImageOps
 import os
 import sys
 
-"""
-MNIST Digit Drawer – **PyGame version** (works on macOS)
-=======================================================
-* Draw with left mouse button in the 280×280 window.
-* Press **Space** to predict the digit; result shows in window title.
-* Press **C** to clear.
 
-Requires `pygame` and `pillow`:
-    pip install pygame pillow
-
-Make sure `mnist_weights.npz` (saved via `np.savez`) is in the same folder.
-"""
-
-# ------------------------------------------------------------------
-# 1. LOAD WEIGHTS
-# ------------------------------------------------------------------
 FILE = "mnist_weights.npz"
 if not os.path.exists(FILE):
     sys.exit("mnist_weights.npz not found. Train network, save weights, rerun.")
@@ -27,9 +12,6 @@ if not os.path.exists(FILE):
 nw = np.load(FILE)
 W1, b1, W2, b2 = nw["W1"], nw["b1"], nw["W2"], nw["b2"]
 
-# ------------------------------------------------------------------
-# 2. NETWORK UTILS
-# ------------------------------------------------------------------
 
 def relu(z):
     return np.maximum(0, z)
@@ -45,9 +27,6 @@ def predict_vec(x):
     a2 = softmax(z2)
     return int(np.argmax(a2, axis=0).item())
 
-# ------------------------------------------------------------------
-# 3. PYGAME SETUP
-# ------------------------------------------------------------------
 pygame.init()
 SIZE = 280
 PEN  = 18

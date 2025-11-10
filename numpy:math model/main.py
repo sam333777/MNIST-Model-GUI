@@ -16,7 +16,6 @@ X_train    = data_train[1:n] / 255.0
 _, m_train = X_train.shape                    
 
 def init_params():
-    """He-style random init keeps early activations reasonable."""
     W1 = np.random.randn(10, 784) * np.sqrt(2/784)
     b1 = np.zeros((10, 1))
     W2 = np.random.randn(10, 10)  * np.sqrt(2/10)
@@ -33,13 +32,11 @@ def relu_deriv(Z):
 
 
 def softmax(Z):
-    """Column-wise softmax, numerically stable."""
     expZ = np.exp(Z - np.max(Z, axis=0, keepdims=True))
     return expZ / np.sum(expZ, axis=0, keepdims=True)
 
 
 def one_hot(Y):
-    """Convert digit labels (0-9) to one-hot columns (10 × m)."""
     n_classes = int(Y.max() + 1)
     one_hot_Y = np.zeros((n_classes, Y.size))
     one_hot_Y[Y.astype(int), np.arange(Y.size)] = 1
@@ -101,7 +98,6 @@ def gradient_descent(X, Y, alpha=0.1, iterations=500, print_every=10):
     return W1, b1, W2, b2
 
 def make_predictions(X, W1, b1, W2, b2):
-    """Make predictions on new data using the trained model."""
     _, _, _, A2 = forward_prop(W1, b1, W2, b2, X)
     return get_predictions(A2)
 
